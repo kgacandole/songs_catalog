@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Worship Songs</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Jost', sans-serif;
+    background: #f9f8f5;
+    color: #1a1a1a;
+    min-height: 100vh;
+  }
+
+  header {
+    text-align: center;
+    padding: 4rem 2rem 2.5rem;
+    border-bottom: 1px solid #e0ddd6;
+    background: #fff;
+  }
+
+  .cross-icon {
+    display: inline-block;
+    font-size: 1.2rem;
+    color: #9a8c7e;
+    letter-spacing: 0.2em;
+    margin-bottom: 1rem;
+  }
+
+  h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 3rem;
+    letter-spacing: 0.08em;
+    color: #1a1a1a;
+  }
+
+  .subtitle {
+    font-size: 0.75rem;
+    font-weight: 300;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #9a8c7e;
+    margin-top: 0.5rem;
+  }
+
+  .search-bar {
+    max-width: 480px;
+    margin: 2rem auto 0;
+    position: relative;
+  }
+
+  .search-bar input {
+    width: 100%;
+    padding: 0.75rem 1.25rem;
+    border: 1px solid #e0ddd6;
+    border-radius: 2px;
+    background: #f9f8f5;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 300;
+    color: #1a1a1a;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .search-bar input::placeholder { color: #b0a89e; }
+  .search-bar input:focus { border-color: #9a8c7e; background: #fff; }
+
+  .filters {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    padding: 1.5rem 2rem;
+    flex-wrap: wrap;
+    background: #fff;
+    border-bottom: 1px solid #e0ddd6;
+  }
+
+  .filter-btn {
+    padding: 0.35rem 1rem;
+    border: 1px solid #e0ddd6;
+    border-radius: 2px;
+    background: transparent;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #6b6259;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .filter-btn:hover, .filter-btn.active {
+    background: #1a1a1a;
+    border-color: #1a1a1a;
+    color: #fff;
+  }
+
+  .catalog-grid {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1px;
+    background: #e0ddd6;
+    border: 1px solid #e0ddd6;
+  }
+
+  .song-card {
+    background: #fff;
+    padding: 1.75rem 1.5rem;
+    cursor: pointer;
+    transition: background 0.2s;
+    text-decoration: none;
+    display: block;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .song-card::after {
+    content: '';
+    position: absolute;
+    left: 0; top: 0;
+    width: 2px; height: 0;
+    background: #9a8c7e;
+    transition: height 0.25s ease;
+  }
+
+  .song-card:hover { background: #f9f8f5; }
+  .song-card:hover::after { height: 100%; }
+
+  .song-number {
+    font-size: 0.65rem;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    color: #c0b8b0;
+    margin-bottom: 0.75rem;
+  }
+
+  .song-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-size: 1.3rem;
+    color: #1a1a1a;
+    line-height: 1.3;
+    margin-bottom: 0.5rem;
+  }
+
+  .song-artist {
+    font-size: 0.75rem;
+    font-weight: 300;
+    color: #9a8c7e;
+    letter-spacing: 0.05em;
+  }
+
+  .song-tag {
+    display: inline-block;
+    margin-top: 0.85rem;
+    padding: 0.2rem 0.6rem;
+    border: 1px solid #e0ddd6;
+    border-radius: 2px;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #9a8c7e;
+  }
+
+  .song-link-icon {
+    position: absolute;
+    right: 1.25rem;
+    bottom: 1.25rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    color: #c0b8b0;
+    font-weight: 300;
+  }
+
+  .empty-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 4rem 2rem;
+    background: #fff;
+    color: #9a8c7e;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.2rem;
+  }
+
+  footer {
+    text-align: center;
+    padding: 2rem;
+    font-size: 0.7rem;
+    color: #c0b8b0;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="cross-icon">✦ ✦ ✦</div>
+  <h1>FBIFSG Songs Catalog</h1>
+  <p class="subtitle">"I will give thanks to the Lord because of His righteousness; I will sing the praises of the Name of the Lord Most High." - Psalm 7:17</p>
+  <div class="search-bar">
+    <input type="text" id="searchInput" placeholder="Search by title or artist..." oninput="filterSongs()">
+  </div>
+</header>
+
+<div class="filters">
+  <button class="filter-btn active" onclick="setFilter('All', this)">All</button>
+  <button class="filter-btn" onclick="setFilter('Praise', this)">Praise</button>
+  <button class="filter-btn" onclick="setFilter('Worship', this)">Worship</button>
+  <button class="filter-btn" onclick="setFilter('Worship', this)">Chords</button>
+</div>
+
+<div class="catalog-grid" id="catalogGrid"></div>
+
+<footer>Click any song to open its slide deck/chords</footer>
+
+<script>
+  // ============================================================
+  // EDIT YOUR SONGS HERE
+  // For each song, update:
+  //   title    — the song name
+  //   artist   — the artist or composer
+  //   tag      — one of: Praise, Worship, Hymn, Advent (or add your own)
+  //   canvaUrl — paste your Canva public share link here
+  // ============================================================
+  const songs = [
+    { title: "To The Ends of The Earth", artist: "Hillsong", tag: "Worship", canvaUrl: "https://canva.link/6rbv5egezqjg0iz" },
+    { title: "Amazing Grace (My Chains are Gone)", artist: "Chris Tomlin", tag: "Worship", canvaUrl: "https://canva.link/hu0n36c2wi68q1d" },
+    { title: "Holy Forever", artist: "Chris Tomlin", tag: "Worship", canvaUrl: "https://canva.link/42hrz85fgxvbzsu" },
+    { title: "Hosanna", artist: "Hillsong", tag: "Worship", canvaUrl: "https://canva.link/yhcq3z1k0j1aabg" }
+  ];
+
+  let activeFilter = 'All';
+
+  function setFilter(tag, btn) {
+    activeFilter = tag;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    filterSongs();
+  }
+
+  function filterSongs() {
+    const query = document.getElementById('searchInput').value.toLowerCase();
+    const grid = document.getElementById('catalogGrid');
+    grid.innerHTML = '';
+
+    const filtered = songs.filter(s => {
+      const matchTag = activeFilter === 'All' || s.tag === activeFilter;
+      const matchQuery = s.title.toLowerCase().includes(query) || s.artist.toLowerCase().includes(query);
+      return matchTag && matchQuery;
+    });
+
+    if (filtered.length === 0) {
+      grid.innerHTML = '<div class="empty-state">No songs found.</div>';
+      return;
+    }
+
+    filtered.forEach((song, i) => {
+      const card = document.createElement('a');
+      card.className = 'song-card';
+      card.href = song.canvaUrl;
+      card.target = '_blank';
+      card.rel = 'noopener noreferrer';
+      card.innerHTML = `
+        <div class="song-number">${String(i + 1).padStart(2, '0')}</div>
+        <div class="song-title">${song.title}</div>
+        <div class="song-artist">${song.artist}</div>
+        <span class="song-tag">${song.tag}</span>
+        <span class="song-link-icon">↗ Slides</span>
+      `;
+      grid.appendChild(card);
+    });
+  }
+
+  filterSongs();
+</script>
+
+</body>
+</html>
