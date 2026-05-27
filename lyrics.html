@@ -39,7 +39,7 @@
     font-weight: 500;
   }
   .lyric-text {
-    font-size: clamp(12px, 2.2vw, 30px);
+    font-size: clamp(12px, 2.2vw, 40px);
     color: #fff;
     line-height: 1.65;
     font-weight: 400;
@@ -181,7 +181,7 @@
     for(sl of lyrics.split("\n")){
       slide_text = slide_text + sl + "\n"
       ctr++
-      if(ctr == 4){
+      if(ctr == 10){
         slides.push({
           section: title,
           text: slide_text
