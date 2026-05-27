@@ -161,6 +161,9 @@
   const title = params.get("title").replaceAll(" ", "-");
   const artist = params.get("artist").replaceAll(" ", "-");
 
+  console.log(title)
+  console.log(artist)
+
   async function fetchLyrics() {
     const response = await fetch("https://api.lyrics.ovh/v1/" + artist + "/" + title, {
       method: "GET",
