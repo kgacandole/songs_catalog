@@ -227,6 +227,7 @@
 <script>
   const songs = []
   const songs_catalog_url = "https://songs-catalog.kgcan-notifsg.workers.dev"
+  let activeFilter = 'All';
 
   async function loadSongs(){
     const songsFile = await fetch('songs_list.csv');
@@ -243,9 +244,9 @@
         url: songs_catalog_url + "/lyrics.html?title=" + title.toLowerCase().replaceAll(" ", "-") + "&artist=" + artist.toLowerCase().replaceAll(" ", "-")
       })
     }
-    let activeFilter = 'All';
     filterSongs();
   }
+  
   loadSongs();
   
   function setFilter(tag, btn) {
