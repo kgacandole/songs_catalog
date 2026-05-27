@@ -178,22 +178,29 @@
     console.log(lyrics)
   }
 
-  fetchLyrics();
+  const songSlides = []
+  const songLyrics = fetchLyrics().split("\n");
+  for(sl of songLyrics){
+    songSlides.push({
+      section: title,
+      text: sl
+    })
+  }
 
-const slides = [
-  { section: "Intro", text: "Is this the real life?\nIs this just fantasy?\nCaught in a landslide,\nNo escape from reality." },
-  { section: "Verse 1", text: "Open your eyes,\nLook up to the skies and see.\nI'm just a poor boy, I need no sympathy,\nBecause it's easy come, easy go,\nLittle high, little low." },
-  { section: "Verse 1 cont.", text: "Anyway the wind blows doesn't really matter to me,\nTo me." },
-  { section: "Verse 2", text: "Mama, just killed a man,\nPut a gun against his head,\nPulled my trigger, now he's dead.\nMama, life had just begun,\nBut now I've gone and thrown it all away." },
-  { section: "Verse 2 cont.", text: "Mama, ooh,\nDidn't mean to make you cry,\nIf I'm not back again this time tomorrow,\nCarry on, carry on as if nothing really matters." },
-  { section: "Verse 3", text: "Too late, my time has come,\nSends shivers down my spine,\nBody's aching all the time.\nGoodbye, everybody, I've got to go,\nGotta leave you all behind and face the truth." },
-  { section: "Chorus", text: "Mama, ooh (anyway the wind blows),\nI don't want to die,\nI sometimes wish I'd never been born at all." },
-  { section: "Opera Section", text: "I see a little silhouetto of a man,\nScaramouche, Scaramouche, will you do the Fandango?\nThunderbolt and lightning, very very frightening me." },
-  { section: "Opera Section cont.", text: "Galileo, Galileo,\nGalileo figaro — Magnifico!\nI'm just a poor boy, nobody loves me." },
-  { section: "Hard Rock", text: "So you think you can stop me and spit in my eye?\nSo you think you can love me and leave me to die?\nOh, baby, can't do this to me, baby." },
-  { section: "Outro", text: "Nothing really matters,\nAnyone can see,\nNothing really matters,\nNothing really matters to me." },
-  { section: "Outro", text: "Anyway the wind blows..." },
-];
+// const slides = [
+//   { section: "Intro", text: "Is this the real life?\nIs this just fantasy?\nCaught in a landslide,\nNo escape from reality." },
+//   { section: "Verse 1", text: "Open your eyes,\nLook up to the skies and see.\nI'm just a poor boy, I need no sympathy,\nBecause it's easy come, easy go,\nLittle high, little low." },
+//   { section: "Verse 1 cont.", text: "Anyway the wind blows doesn't really matter to me,\nTo me." },
+//   { section: "Verse 2", text: "Mama, just killed a man,\nPut a gun against his head,\nPulled my trigger, now he's dead.\nMama, life had just begun,\nBut now I've gone and thrown it all away." },
+//   { section: "Verse 2 cont.", text: "Mama, ooh,\nDidn't mean to make you cry,\nIf I'm not back again this time tomorrow,\nCarry on, carry on as if nothing really matters." },
+//   { section: "Verse 3", text: "Too late, my time has come,\nSends shivers down my spine,\nBody's aching all the time.\nGoodbye, everybody, I've got to go,\nGotta leave you all behind and face the truth." },
+//   { section: "Chorus", text: "Mama, ooh (anyway the wind blows),\nI don't want to die,\nI sometimes wish I'd never been born at all." },
+//   { section: "Opera Section", text: "I see a little silhouetto of a man,\nScaramouche, Scaramouche, will you do the Fandango?\nThunderbolt and lightning, very very frightening me." },
+//   { section: "Opera Section cont.", text: "Galileo, Galileo,\nGalileo figaro — Magnifico!\nI'm just a poor boy, nobody loves me." },
+//   { section: "Hard Rock", text: "So you think you can stop me and spit in my eye?\nSo you think you can love me and leave me to die?\nOh, baby, can't do this to me, baby." },
+//   { section: "Outro", text: "Nothing really matters,\nAnyone can see,\nNothing really matters,\nNothing really matters to me." },
+//   { section: "Outro", text: "Anyway the wind blows..." },
+// ];
 
 let cur = 0, autoTimer = null, isPlaying = false;
 const lyricEl = document.getElementById('lyricDisplay');
