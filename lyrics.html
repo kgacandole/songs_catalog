@@ -173,16 +173,15 @@
     });
 
     const data = await response.json();
-    console.log(data)
     const lyrics = data.lyrics;
-    console.log(lyrics)
     return lyrics
   }
 
-  const songSlides = []
+  const slides = []
   const songLyrics = fetchLyrics().split("\n");
+  console.log(songLyrics)
   for(sl of songLyrics){
-    songSlides.push({
+    slides.push({
       section: title,
       text: sl
     })
