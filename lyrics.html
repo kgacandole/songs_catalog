@@ -39,7 +39,7 @@
     font-weight: 500;
   }
   .lyric-text {
-    font-size: clamp(12px, 2.2vw, 40px);
+    font-size: clamp(12px, 2.2vw, 50px);
     color: #fff;
     line-height: 1.65;
     font-weight: 400;
@@ -177,11 +177,14 @@
     const lyrics = data.lyrics;
 
     var ctr = 1
+    var max_slide_lines = 4
     var slide_text = ""
     for(sl of lyrics.split("\n")){
-      slide_text = slide_text + sl + "\n"
-      ctr++
-      if(ctr == 10){
+      if(!(sl.includes("chorus"))){
+        slide_text = slide_text + sl + "\n"
+        ctr++
+      }
+      if(ctr == max_slide_lines){
         slides.push({
           section: title,
           text: slide_text
