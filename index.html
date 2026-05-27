@@ -226,16 +226,17 @@
 
 <script>
   const songs = []
+  const songs_catalog_url = "https://songs-catalog.kgcan-notifsg.workers.dev"
 
   async function loadSongs(){
     const songsFile = await fetch('songs_list.csv');
-    const list = await response.text();
+    const list = await songsFile.text();
     for(l of list.split("\n")){
       songs.push({
         title: l.split(",")[0],
         artist: l.split(",")[1],
         tag: l.split(",")[2],
-        url: l.split(",")[3]
+        url: songs_catalog_url + "/lyrics.html?title=" + title.toLowerCase().replaceAll(" ", "-") + "&artist=" + artist.toLowerCase().replaceAll(" ", "-")
       })
     }
     let activeFilter = 'All';
