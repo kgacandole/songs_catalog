@@ -225,21 +225,24 @@
 <footer>Click any song to open its slide deck/chords</footer>
 
 <script>
-  const songsFile = await fetch('songs_list.csv');
-  const list = await response.text();
   const songs = []
 
-  for(l of list.split("\n")){
-    songs.push({
-      title: l.split(",")[0],
-      artist: l.split(",")[1],
-      tag: l.split(",")[2],
-      url: l.split(",")[3]
-    })
+  async function loadSongs(){
+    const songsFile = await fetch('songs_list.csv');
+    const list = await response.text();
+    for(l of list.split("\n")){
+      songs.push({
+        title: l.split(",")[0],
+        artist: l.split(",")[1],
+        tag: l.split(",")[2],
+        url: l.split(",")[3]
+      })
+    }
+    let activeFilter = 'All';
+    filterSongs();
   }
-
-  let activeFilter = 'All';
-
+  loadSongs();
+  
   function setFilter(tag, btn) {
     activeFilter = tag;
     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
@@ -280,8 +283,6 @@
       grid.appendChild(card);
     });
   }
-
-  filterSongs();
 </script>
 
 </body>
