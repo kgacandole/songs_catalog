@@ -176,11 +176,20 @@
 
     const data = await response.json();
     const lyrics = data.lyrics;
-    for(sl of lyrics){
-      slides.push({
-        section: title,
-        text: sl
-      })
+
+    var ctr = 1
+    var slide_text = ""
+    for(sl of lyrics.split("\n")){
+      slide_text = slide_text + sl + "\n"
+      ctr++
+      if(ctr == 4){
+        slides.push({
+          section: title,
+          text: sl
+        })
+        ctr = 0
+        slide_text = ""
+      }
     }
     totalEl.textContent = slides.length;
     showSlide(0);
