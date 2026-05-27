@@ -119,8 +119,8 @@
     <div class="song-header">
       <div class="song-icon"><i class="ti ti-music" aria-hidden="true"></i></div>
       <div class="song-info">
-        <div class="song-title">Bohemian Rhapsody</div>
-        <div class="song-artist">Queen · 1975</div>
+        <div class="song-title"></div>
+        <div class="song-artist"></div>
       </div>
       <button class="autoplay-btn" id="autoBtn" onclick="toggleAuto()">
         <i class="ti ti-player-play" id="autoIcon"></i>
@@ -161,8 +161,8 @@
   const title = params.get("title").replaceAll(" ", "-");
   const artist = params.get("artist").replaceAll(" ", "-");
 
-  console.log(title)
-  console.log(artist)
+  document.querySelector('.song-title').textContent = title;
+  document.querySelector('.song-artist').textContent = artist;
 
   const slides = []
 
