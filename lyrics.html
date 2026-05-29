@@ -162,11 +162,11 @@
   const artist = params.get("artist");
   const slides = []
 
-  document.querySelector('.song-title').textContent = title;
-  document.querySelector('.song-artist').textContent = artist;
+  document.querySelector('.song-title').textContent = title.toUpperCase().replaceAll("-", " ");
+  document.querySelector('.song-artist').textContent = artist.replaceAll("-", " ");
 
   async function fetchLyrics() {
-    const response = await fetch("https://api.lyrics.ovh/v1/" + artist.replaceAll(" ", "-") + "/" + title.replaceAll(" ", "-"), {
+    const response = await fetch("https://api.lyrics.ovh/v1/" + artist + "/" + title, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
